@@ -202,7 +202,7 @@ CEO-Dismissal-EventStudy/
 │   ├── h3_mean_reversion.png
 │   ├── h4_crisis_comparison.png
 │   └── h5_dismissal_trend.png
-├── ceo_dismissal_analysis_v2.py            # Main analysis script (EDA + Hypothesis Testing)
+├── ceo_dismissal_analysis.py               # Main analysis script (EDA + Hypothesis Testing)
 ├── Project_Proposal.pdf                    # Project proposal document
 ├── requirements.txt
 └── README.md
@@ -218,7 +218,7 @@ CEO-Dismissal-EventStudy/
 
 ### Installation
 ```bash
-git clone https://github.com/yourusername/CEO-Dismissal-EventStudy.git
+git clone https://github.com/aliakgun-bit/CEO-Dismissal-EventStudy.git
 cd CEO-Dismissal-EventStudy
 pip install -r requirements.txt
 ```
