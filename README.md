@@ -29,7 +29,11 @@ Does the stock market exhibit a statistically significant reaction to forced CEO
 Sub-Questions
 
 1.) Is the short-term abnormal return (CAR) following a CEO dismissal significantly negative?
+
 2.) Does the market reaction differ by departure type (forced retirement vs interim replacement)?
+
 3.) Is there evidence of mean reversion — do initial overreactions reverse in subsequent weeks?
+
 4.) Are dismissal reactions more severe during financial crisis periods?
+
 5.) Has the frequency of CEO dismissals increased over time?
