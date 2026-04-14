@@ -22,3 +22,14 @@ Calculating abnormal returns using the market model with S&P 500 as benchmark
 Our analysis sample: 405 forced dismissals with matched tickers (1995–2019)
 After price data collection & cleaning: ~210 events with valid CAR calculations
 Outlier removal: Events with |CAR| > 100% excluded as data errors (delisted/wrong ticker matches)
+
+# Research Questions
+Main Question
+Does the stock market exhibit a statistically significant reaction to forced CEO departures?
+Sub-Questions
+
+1.) Is the short-term abnormal return (CAR) following a CEO dismissal significantly negative?
+2.) Does the market reaction differ by departure type (forced retirement vs interim replacement)?
+3.) Is there evidence of mean reversion — do initial overreactions reverse in subsequent weeks?
+4.) Are dismissal reactions more severe during financial crisis periods?
+5.) Has the frequency of CEO dismissals increased over time?
