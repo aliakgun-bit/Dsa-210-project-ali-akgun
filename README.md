@@ -37,3 +37,6 @@ Sub-Questions
 4.) Are dismissal reactions more severe during financial crisis periods?
 
 5.) Has the frequency of CEO dismissals increased over time?
+
+# Hypotheses
+#HypothesisH₀Test MethodH1CEO dismissal produces significant negative CAR [0,+2]Mean CAR = 0One-sample t-testH2Market reaction differs between departure code 3 (forced retirement) and code 4 (interim)No difference in CAR distributionsMann-Whitney U testH3Initial reaction (Day 0-2) and subsequent drift (Day 3-20) are negatively correlated (mean reversion)ρ = 0Spearman correlationH4Crisis-period (2007-2009) dismissals produce more negative CAR than normal periodsNo differenceMann-Whitney U (one-tailed)H5CEO dismissal frequency shows an increasing trend over 1997-2018No monotonic trendSpearman correlation / Mann-Kendall
