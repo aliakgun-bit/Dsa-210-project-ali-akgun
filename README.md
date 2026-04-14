@@ -1,8 +1,7 @@
 # CEO Dismissals and Stock Market Reactions: An Event Study Approach
 
 ## **DSA 210 – Introduction to Data Science (Spring 2026)**
-**Student:** Ali  
-**Institution:** Sabancı University
+
 
 ---
 
