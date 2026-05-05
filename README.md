@@ -165,6 +165,104 @@ For each CEO dismissal event:
 5. **CEO dismissals are becoming more frequent.** A strong upward trend (+0.67/year, p=0.0001) over 1997-2018 reflects increasing corporate governance pressure and board activism.
 
 ---
+---
+
+## Machine Learning Extension
+
+Building on the event study results, I applied supervised machine learning models to investigate whether **CAR [0,+2] can be predicted** from observable firm and market characteristics available before the event window.
+
+### Objective
+
+- **Regression task:** Predict the exact CAR [0,+2] value (continuous)
+- **Classification task:** Predict the direction of CAR [0,+2] (positive vs. negative)
+
+### Feature Engineering
+
+The following features were constructed from the estimation window and event metadata:
+
+| Feature | Description |
+|---------|-------------|
+| `alpha` | Intercept from market model (estimation window) |
+| `beta` | Market model beta (systematic risk) |
+| `beta_sq` | Beta squared (captures nonlinear market sensitivity) |
+| `year_normalized` | Year scaled to [0,1] for trend capture |
+| `month` | Month of announcement (1–12) |
+| `day_of_week` | Day of announcement (0=Monday) |
+| `is_crisis` | 1 if event occurred during 2007–2009 |
+| `is_january` | 1 if January (January effect) |
+| `is_q4` | 1 if Q4 |
+| `is_code4` | 1 if departure code 4 (interim replacement) |
+| `dep_code` | Raw departure code |
+| `n_evt` | Number of events in estimation window |
+| `n_est` | Number of valid trading days in estimation window |
+
+### Models
+
+**Regression (predicting CAR magnitude):**
+- Random Forest Regressor (100 trees, max_depth=5)
+- Evaluated with R² and RMSE on 20% holdout test set
+
+**Classification (predicting CAR direction):**
+- Gradient Boosting Classifier (100 estimators, learning_rate=0.1)
+- Evaluated with accuracy, AUC-ROC, and confusion matrix on 20% holdout test set
+
+### Results
+
+#### Regression — Random Forest
+
+![Regression Results](figures/ml_regression_results.png)
+
+The model achieves **R² = −0.049**, performing worse than a naïve baseline (predicting the mean). The predicted vs. actual scatter plot shows near-zero predictions across all actual CAR values, confirming that the model cannot capture meaningful variance. The residual distribution is heavily concentrated around zero, further indicating near-constant predictions.
+
+**Interpretation:** The negative R² is a direct consequence of the near-random nature of CAR values. No combination of pre-event features provides predictive signal for the magnitude of the stock reaction.
+
+#### Classification — Gradient Boosting
+
+![Classification Results](figures/ml_classification_results.png)
+
+| Metric | Value |
+|--------|-------|
+| Accuracy | ~49% |
+| AUC-ROC | 0.450 |
+| True Positives | 45 |
+| True Negatives | 50 |
+| False Positives | 53 |
+| False Negatives | 56 |
+
+The model performs **below random chance** (AUC = 0.450 < 0.500). The confusion matrix is nearly symmetric, indicating no directional predictive ability. The ROC curve dips below the diagonal, which suggests the model has slightly inverted learning — a known artifact when the signal is essentially noise.
+
+**Interpretation:** CAR direction cannot be reliably predicted from pre-event features. This is consistent with semi-strong market efficiency: if the direction were predictable from observable firm characteristics, arbitrage would eliminate the pattern.
+
+### Feature Importance
+
+#### Random Forest — Regression
+
+![Feature Importance (Regression)](figures/ml_feature_importance_reg.png)
+
+`year_normalized` dominates with ~41% importance, followed by `alpha` (~24%) and `beta_sq` (~9%). However, this should be interpreted with caution: high feature importance in a low-R² model indicates the model is fitting noise rather than true signal. Time-related features likely capture spurious temporal correlations rather than genuine predictors of CEO dismissal reactions.
+
+#### Gradient Boosting — Classification
+
+![Feature Importance (Classification)](figures/ml_feature_importance_cls.png)
+
+`alpha` leads at ~26%, followed by `year_normalized` (~16%), `day_of_week` (~14%), `beta` (~14%), and `beta_sq` (~13%). The more distributed importance across features (compared to regression) suggests Gradient Boosting explored a wider range of splits — yet this too fails to produce meaningful predictive power given the near-chance AUC.
+
+### ML Findings Summary
+
+| Task | Model | Performance | Conclusion |
+|------|-------|-------------|------------|
+| Regression | Random Forest | R² = −0.049 | Cannot predict CAR magnitude |
+| Classification | Gradient Boosting | AUC = 0.450 | Cannot predict CAR direction |
+
+The machine learning results reinforce the event study conclusions: **forced CEO departures do not produce a predictable stock market reaction from pre-event observables.** This is consistent with the Efficient Market Hypothesis — the market incorporates information quickly and idiosyncratically, leaving no exploitable pattern in firm-level or market-model features.
+
+### Limitations of the ML Approach
+
+- Small sample size (~210 events) limits model generalization
+- No firm-level fundamentals (revenue, sector, prior performance) included as features
+- CAR targets are noisy by construction — they include confounding events not filtered out
+- Models were not tuned extensively (no grid search) to avoid overfitting on a small dataset
+- Future work could incorporate Fama-French factor loadings, firm size, and sector dummies as additional features
 
 ## Limitations and Future Work
 
