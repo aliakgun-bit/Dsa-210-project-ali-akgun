@@ -298,8 +298,15 @@ CEO-Dismissal-EventStudy/
 │   ├── h2_departure_comparison.png
 │   ├── h3_mean_reversion.png
 │   ├── h4_crisis_comparison.png
-│   └── h5_dismissal_trend.png
-├── ceo_dismissal_analysis.py               # Main analysis script (EDA + Hypothesis Testing)
+│   ├── h5_dismissal_trend.png
+│   ├── ml_classification_results.png
+│   ├── ml_feature_importance_cls.png
+│   ├── ml_regression_results.png
+│   └── ml_feature_importance_reg.png
+├── notebook/
+│   └── ceo_dismissal_analysis.ipynb        # Full analysis notebook (EDA + Hypothesis + ML)
+├── ceo_dismissal_analysis.py               # Main analysis script (EDA + Hypothesis Testing + ML)
+├── Final_Report.pdf                        # Final project report
 ├── Project_Proposal.pdf                    # Project proposal document
 ├── requirements.txt
 └── README.md
